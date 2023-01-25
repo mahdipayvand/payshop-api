@@ -8,7 +8,7 @@ const userControllers = require("controllers/user");
 const authControllers = require("controllers/auth");
 const { environment, database } = require("utilities");
 const productControllers = require("controllers/product");
-const { checkAuth, internalServerError, notFound } = require("middlewares");
+const { checkAuth, checkAdmin, internalServerError, notFound } = require("middlewares");
 
 const app = express();
 
@@ -21,15 +21,15 @@ if (environment.isDevelopment()) {
 app.post("/auth/register", userControllers.create);
 app.post("/auth/login", authControllers.login);
 
-app.post("/user", checkAuth, userControllers.create);
-app.get("/user", checkAuth, userControllers.findAll);
+app.post("/user", checkAuth, checkAdmin, userControllers.create);
+app.get("/user", checkAuth, checkAdmin, userControllers.findAll);
 app.get("/user/:userID", checkAuth, userControllers.find);
-app.delete("/user/:userID", checkAuth, userControllers.delete);
+app.delete("/user/:userID", checkAuth, checkAdmin, userControllers.delete);
 
-app.post("/product", checkAuth, productControllers.create);
+app.post("/product", checkAuth, checkAdmin, productControllers.create);
 app.get("/product", productControllers.findAll);
 app.get("/product/:productID", productControllers.find);
-app.delete("/product/:productID", checkAuth, productControllers.delete);
+app.delete("/product/:productID", checkAuth, checkAdmin, productControllers.delete);
 
 app.use(internalServerError);
 app.use(notFound);
