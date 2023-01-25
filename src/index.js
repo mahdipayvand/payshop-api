@@ -5,9 +5,10 @@ const morgan = require("morgan");
 const express = require("express");
 const configs = require("configs");
 const userControllers = require("controllers/user");
+const authControllers = require("controllers/auth");
 const { environment, database } = require("utilities");
 const productControllers = require("controllers/product");
-const { internalServerError, notFound } = require("middlewares");
+const { checkAuth, internalServerError, notFound } = require("middlewares");
 
 const app = express();
 
@@ -17,15 +18,18 @@ if (environment.isDevelopment()) {
   app.use(morgan("dev"));
 }
 
-app.post("/user", userControllers.create);
-app.get("/user", userControllers.findAll);
-app.get("/user/:userID", userControllers.find);
-app.delete("/user/:userID", userControllers.delete);
+app.post("/auth/register", userControllers.create);
+app.post("/auth/login", authControllers.login);
 
-app.post("/product", productControllers.create);
+app.post("/user", checkAuth, userControllers.create);
+app.get("/user", checkAuth, userControllers.findAll);
+app.get("/user/:userID", checkAuth, userControllers.find);
+app.delete("/user/:userID", checkAuth, userControllers.delete);
+
+app.post("/product", checkAuth, productControllers.create);
 app.get("/product", productControllers.findAll);
 app.get("/product/:productID", productControllers.find);
-app.delete("/product/:productID", productControllers.delete);
+app.delete("/product/:productID", checkAuth, productControllers.delete);
 
 app.use(internalServerError);
 app.use(notFound);
