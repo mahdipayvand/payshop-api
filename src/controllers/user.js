@@ -32,7 +32,7 @@ exports.find = async (req, res) => {
 
   if (!mongoose.isValidObjectId(userID)) return res.status(400).json(response.failure("User ID is invalid!"));
 
-  const user = await User.findById(userID).select("-password");
+  const user = await User.findById(userID).select("-password -isAdmin");
 
   if (!user) return res.status(404).json(response.failure("User does not exists!"));
 
