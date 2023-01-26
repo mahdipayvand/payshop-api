@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
 
   const user = await User.findById(userID);
 
-  if (!user.isAdmin) return res.status(403).json(response.failure("Permission Denied!"));
+  if (!user?.isAdmin) return res.status(403).json(response.failure("Permission Denied!"));
 
   next();
 };
