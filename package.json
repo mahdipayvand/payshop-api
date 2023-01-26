@@ -17,6 +17,8 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./src/index.js",
-    "dev": "cross-env NODE_ENV=development nodemon ./src/index.js"
+    "dev": "cross-env NODE_ENV=development nodemon ./src/index.js",
+    "data:import": "node ./src/seeder.js",
+    "data:destroy": "node ./src/seeder.js -d"
   }
 }
