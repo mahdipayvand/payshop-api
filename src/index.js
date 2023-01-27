@@ -2,6 +2,7 @@ require("express-async-errors");
 require("app-module-path").addPath(__dirname);
 
 const path = require("path");
+const cors = require("cors");
 const morgan = require("morgan");
 const express = require("express");
 const configs = require("configs");
@@ -13,6 +14,8 @@ const { checkAuth, checkAdmin, upload, internalServerError, notFound } = require
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "../public")));
 
@@ -23,6 +26,7 @@ if (environment.isDevelopment()) {
 app.post("/auth/register", userControllers.create);
 app.post("/auth/login", authControllers.login);
 
+app.get("/user/profile", checkAuth, userControllers.profile);
 app.post("/user", checkAuth, checkAdmin, userControllers.create);
 app.get("/user", checkAuth, checkAdmin, userControllers.findAll);
 app.get("/user/:userID", checkAuth, userControllers.find);
