@@ -8,9 +8,9 @@ exports.create = async (req, res) => {
   if (!title) return res.status(400).json(response.failure("Title does not entered!"));
   if (!price) return res.status(400).json(response.failure("Price does not entered!"));
 
-  await Product.create({ title, price, description, image: `/uploads/${req.file.filename}` });
+  const product = await Product.create({ title, price, description, image: `/uploads/${req.file.filename}` });
 
-  res.status(201).json(response.successful());
+  res.status(201).json(response.successful("", product));
 };
 
 exports.findAll = async (_, res) => {
