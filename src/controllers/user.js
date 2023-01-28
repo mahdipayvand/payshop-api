@@ -14,9 +14,9 @@ exports.create = async (req, res) => {
 
   if (user) return res.status(409).json(response.failure("Email already exists!"));
 
-  await User.create({ firstName, lastName, email, password });
+  const createdUser = await User.create({ firstName, lastName, email, password });
 
-  res.status(201).json(response.successful());
+  res.status(201).json(response.successful("", createdUser));
 };
 
 exports.findAll = async (_, res) => {

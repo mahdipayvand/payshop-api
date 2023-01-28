@@ -9,8 +9,21 @@ const users = [
     firstName: "مهدی",
     lastName: "پایوند",
     email: "paivand13811831@gmail.com",
+    password: bcrypt.hashSync("123", 10),
+    isAdmin: true,
+  },
+  {
+    firstName: "محمد",
+    lastName: "کریمی",
+    email: "mohammadkarimi@gmail.com",
     password: bcrypt.hashSync("1234", 10),
     isAdmin: true,
+  },
+  {
+    firstName: "رضا",
+    lastName: "پایوند",
+    email: "rezapayvand@gmail.com",
+    password: bcrypt.hashSync("12345", 10),
   },
 ];
 
