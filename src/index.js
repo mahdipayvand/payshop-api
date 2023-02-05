@@ -9,6 +9,7 @@ const configs = require("configs");
 const userControllers = require("controllers/user");
 const authControllers = require("controllers/auth");
 const { environment, database } = require("utilities");
+const slideControllers = require("controllers/slide");
 const productControllers = require("controllers/product");
 const { checkAuth, checkAdmin, upload, internalServerError, notFound } = require("middlewares");
 
@@ -36,6 +37,10 @@ app.post("/product", checkAuth, checkAdmin, upload.single("image"), productContr
 app.get("/product", productControllers.findAll);
 app.get("/product/:productID", productControllers.find);
 app.delete("/product/:productID", checkAuth, checkAdmin, productControllers.delete);
+
+app.post("/slide", checkAuth, checkAdmin, upload.single("image"), slideControllers.create);
+app.get("/slide", slideControllers.findAll);
+app.delete("/slide/:slideID", checkAuth, checkAdmin, productControllers.delete);
 
 app.use(internalServerError);
 app.use(notFound);

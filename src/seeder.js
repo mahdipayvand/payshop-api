@@ -2,7 +2,7 @@ require("app-module-path").addPath(__dirname);
 
 const bcrypt = require("bcrypt");
 const { database } = require("utilities");
-const { User, Product } = require("models");
+const { User, Product, Slide } = require("models");
 
 const users = [
   {
@@ -72,12 +72,16 @@ const products = [
   },
 ];
 
+const slides = [{ image: "/uploads/9.jpg" }, { image: "/uploads/10.jpg" }, { image: "/uploads/11.jpg" }];
+
 const importData = async () => {
   await User.deleteMany();
   await Product.deleteMany();
+  await Slide.deleteMany();
 
   await User.insertMany(users);
   await Product.insertMany(products);
+  await Slide.insertMany(slides);
 
   console.log("Data imported.");
   process.exit(0);
@@ -85,7 +89,7 @@ const importData = async () => {
 
 const destroyData = async () => {
   await User.deleteMany();
-  await Product.deleteMany();
+  await Slide.deleteMany();
 
   console.log("Data Destroyed!");
   process.exit(0);

@@ -3,4 +3,5 @@ node_modules/
 !.env.example
 public/uploads/*
 !public/uploads/.gitkeep
-!public/uploads/[1-8].jpg
+!public/uploads/[1-9].jpg
+!public/uploads/1[0-1].jpg
