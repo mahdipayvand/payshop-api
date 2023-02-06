@@ -52,7 +52,7 @@ exports.delete = async (req, res) => {
 };
 
 exports.profile = async (req, res) => {
-  const user = await User.findById(req.userID).select("-password -isAdmin");
+  const user = await User.findById(req.userID).select("-password");
 
   if (!user) return res.status(404).json(response.failure("User does not exists!"));
 
