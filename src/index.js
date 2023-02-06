@@ -40,7 +40,7 @@ app.delete("/product/:productID", checkAuth, checkAdmin, productControllers.dele
 
 app.post("/slide", checkAuth, checkAdmin, upload.single("image"), slideControllers.create);
 app.get("/slide", slideControllers.findAll);
-app.delete("/slide/:slideID", checkAuth, checkAdmin, productControllers.delete);
+app.delete("/slide/:slideID", checkAuth, checkAdmin, slideControllers.delete);
 
 app.use(internalServerError);
 app.use(notFound);
