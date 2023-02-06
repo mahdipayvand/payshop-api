@@ -3,14 +3,22 @@ const { Product } = require("models");
 const { response } = require("utilities");
 
 exports.create = async (req, res) => {
-  const { title, price, description } = req.body;
+  const { title, price, discount, description } = req.body;
 
   if (!title) return res.status(400).json(response.failure("Title does not entered!"));
   if (!price) return res.status(400).json(response.failure("Price does not entered!"));
 
-  const product = await Product.create({ title, price, description, image: `/uploads/${req.file.filename}` });
+  const product = await Product.create({ title, price, discount, description, image: `/uploads/${req.file.filename}` });
 
   res.status(201).json(response.successful("", product));
+};
+
+exports.findSpecialOffers = async (_, res) => {
+  const specialOffers = await Product.find().where("discount").exists();
+
+  if (specialOffers.length === 0) return res.status(404).json(response.failure("There are no special offers!"));
+
+  res.json(response.successful("", specialOffers));
 };
 
 exports.findAll = async (_, res) => {

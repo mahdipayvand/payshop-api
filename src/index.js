@@ -34,6 +34,7 @@ app.get("/user/:userID", checkAuth, userControllers.find);
 app.delete("/user/:userID", checkAuth, checkAdmin, userControllers.delete);
 
 app.post("/product", checkAuth, checkAdmin, upload.single("image"), productControllers.create);
+app.get("/product/special-offers", productControllers.findSpecialOffers);
 app.get("/product", productControllers.findAll);
 app.get("/product/:productID", productControllers.find);
 app.delete("/product/:productID", checkAuth, checkAdmin, productControllers.delete);
