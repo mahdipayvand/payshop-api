@@ -9,7 +9,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = async (_, res) => {
-  const slides = await Slide.find();
+  const slides = await Slide.find().sort({ createdAt: "desc" });
 
   if (slides.length === 0) return res.status(404).json(response.failure("There are no slides!"));
 

@@ -20,7 +20,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = async (_, res) => {
-  const users = await User.find().select("-password");
+  const users = await User.find().select("-password").sort({ createdAt: "desc" });
 
   if (users.length === 0) return res.status(404).json(response.failure("There are no users!"));
 

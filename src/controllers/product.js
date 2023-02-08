@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findSpecialOffers = async (_, res) => {
-  const specialOffers = await Product.find().where("discount").exists();
+  const specialOffers = await Product.find().where("discount").exists().sort({ createdAt: "desc" });
 
   if (specialOffers.length === 0) return res.status(404).json(response.failure("There are no special offers!"));
 
@@ -22,7 +22,7 @@ exports.findSpecialOffers = async (_, res) => {
 };
 
 exports.findAll = async (_, res) => {
-  const products = await Product.find();
+  const products = await Product.find().sort({ createdAt: "desc" });
 
   if (products.length === 0) return res.status(404).json(response.failure("There are no products!"));
 
